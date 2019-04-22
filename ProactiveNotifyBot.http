@@ -1,0 +1,37 @@
+@SECRET_KEY = YOUR_SECRET_KEY
+@TOKEN = YOUR_TOKEN
+@CONVERSATION_ID = YOUR_CONVERSATION_ID
+
+###
+
+# 身份验证 Authentication
+# 通过以下方式对 Direct Line API 3.0 请求进行身份验证，將秘鑰(secert)換成令牌(token)
+POST https://directline.botframework.com/v3/directline/tokens/generate HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{SECRET_KEY}}
+
+###
+
+# 启动会话 Start a conversation
+# 启动会话请求用于打开一个新会话，响应将包含用於傳送訊息的会话識別碼(conversationId)
+POST https://directline.botframework.com/v3/directline/conversations HTTP/1.1
+Content-Type:application/json
+Authorization:Bearer {{TOKEN}}
+
+###
+
+# 发送活动 Send an activity
+# 将某个活动发送到机器人
+POST https://directline.botframework.com/v3/directline/conversations/{{CONVERSATION_ID}}/activities HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+    "from": {
+        "id": "",
+        "name": "VS Code",
+    },
+    "value": "{\"Username\":\"poy\",\"Message\":\"Global Azure Bootcamp is awesome!!\"}",
+    "name": "notifyEvent",
+    "type": "event"
+}
